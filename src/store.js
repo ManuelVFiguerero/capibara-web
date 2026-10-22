@@ -73,7 +73,25 @@
     return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
   }
 
+  // Pedidos a medida: cada tipo abre WhatsApp con un mensaje inicial distinto.
+  const CUSTOM_ORDERS = [
+    { id: 'coleccion', title: 'Tu talle, tu color', text: 'Cualquier pieza de la colección, hecha para vos.',
+      message: '¡Hola Capibara! Me gustaría una pieza de la colección en mi talle y en otro color.' },
+    { id: 'diseno', title: 'Tu idea', text: 'Partimos de lo que imaginás y lo diseñamos juntas.',
+      message: '¡Hola Capibara! Tengo una idea para una prenda de cuero a medida.' },
+    { id: 'novias', title: 'Novias y fiestas', text: 'Vestidos de novia y de fiesta en cuero.',
+      message: '¡Hola Capibara! Quiero consultar por un vestido de novia a medida.' },
+  ];
+
+  function buildCustomOrderUrl(phone, kind) {
+    const order = CUSTOM_ORDERS.find(o => o.id === kind);
+    if (!order) throw new Error('Tipo de pedido desconocido: ' + kind);
+    return `https://wa.me/${phone}?text=${encodeURIComponent(order.message)}`;
+  }
+
   return {
+    CUSTOM_ORDERS,
+    buildCustomOrderUrl,
     formatPrice,
     discountPercent,
     filterByCategory,

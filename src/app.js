@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  const { formatPrice, discountPercent, filterByCategory, withLook, createCart, buildWhatsappOrderUrl } = window.CapibaraStore;
+  const { formatPrice, discountPercent, filterByCategory, withLook, createCart, buildWhatsappOrderUrl, CUSTOM_ORDERS, buildCustomOrderUrl } = window.CapibaraStore;
   const { PRODUCTS, CATEGORIES, CAMPAIGN, WHATSAPP, EMAIL, INSTAGRAM, SHOP } = window.CapibaraData;
 
   const $ = sel => document.querySelector(sel);
@@ -143,6 +143,33 @@
   $('#playerClose').addEventListener('click', closePlayer);
   full.addEventListener('ended', closePlayer);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && player.classList.contains('open')) closePlayer(); });
+
+  /* ---------- A medida ---------- */
+  const customCta = $('#customCta');
+  function selectCustom(id) {
+    $$('.custom-option').forEach(o => o.setAttribute('aria-checked', String(o.dataset.kind === id)));
+    customCta.href = buildCustomOrderUrl(WHATSAPP, id);
+    customCta.textContent = id === 'novias' ? 'Consultar por tu vestido' : 'Consultar por WhatsApp';
+  }
+  $('#customOptions').append(...CUSTOM_ORDERS.map(o => {
+    const b = el('button', { class: 'custom-option', type: 'button', role: 'radio', 'aria-checked': 'false', 'data-kind': o.id }, [
+      el('strong', { text: o.title }),
+      el('span', { text: o.text }),
+    ]);
+    b.addEventListener('click', () => selectCustom(o.id));
+    return b;
+  }));
+  // Las flechas mueven la selección, como en cualquier grupo de opciones.
+  $('#customOptions').addEventListener('keydown', e => {
+    if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(e.key)) return;
+    e.preventDefault();
+    const opts = $$('.custom-option');
+    const i = opts.indexOf(document.activeElement);
+    const next = opts[(i + (e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : opts.length - 1)) % opts.length];
+    next.focus();
+    selectCustom(next.dataset.kind);
+  });
+  selectCustom('coleccion');
 
   /* ---------- Categorías ---------- */
   $('#filters').append(...CATEGORIES.map(c =>

@@ -10,7 +10,7 @@ Para publicarlo en otro hosting, subí la carpeta `dist/` completa: `index.html`
 
 ## Estructura
 
-- `src/store.js` — lógica de negocio pura (precios, descuentos, filtros, carrusel, carrito, pedido por WhatsApp). No toca el DOM.
+- `src/store.js` — lógica de negocio pura (precios, descuentos, filtros, carrito, pedido por WhatsApp y pedidos a medida: colección, diseño propio y novias). No toca el DOM.
 - `src/products.js` — catálogo, categorías e imágenes de campaña.
 - `assets/campana/` — imágenes de campaña generadas con IA (ilustrativas).
 - `assets/looks/` — fotos de producto generadas con IA. Por decisión de la marca, la tienda muestra solo estas imágenes; una prenda aparece en la colección cuando tiene su foto generada.
