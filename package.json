@@ -1,0 +1,9 @@
+{
+  "name": "capibara-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio web de Capibara — cuero genuino hecho a mano",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}
