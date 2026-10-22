@@ -44,12 +44,19 @@ test('los bloques de campaña que enlazan a una categoría apuntan a una que exi
   }
 });
 
-test('el video de marca tiene loop, película completa y portadas existentes', () => {
+test('el video de marca tiene el archivo y su portada', () => {
   const { FILM } = globalThis.CapibaraData;
-  for (const key of ['loop', 'src', 'poster', 'loopPoster']) {
+  for (const key of ['src', 'poster']) {
     assert.ok(FILM[key], `falta FILM.${key}`);
     assert.ok(exists(FILM[key]), `falta ${FILM[key]}`);
   }
+});
+
+test('el video se reproduce en la página: no queda un loop aparte ni un reproductor en ventana', () => {
+  const { FILM } = globalThis.CapibaraData;
+  assert.equal(FILM.loop, undefined);
+  const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  assert.doesNotMatch(html, /id="player"|Ver la película/);
 });
 
 test('la foto del taller es una foto real, no una imagen de campaña generada', () => {

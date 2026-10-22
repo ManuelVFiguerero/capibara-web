@@ -76,10 +76,8 @@
     taller: { generated: false, src: 'assets/taller/artesana.webp', alt: 'María Eugenia Mantilla trabajando el cuero en su taller, rodeada de cueros colgados' },
   };
 
-  // Video de marca: un loop corto y mudo para la portada de la sección, y la película completa con sonido.
+  // Video de marca: se reproduce en la página, en silencio y en loop; el sonido se activa con un botón.
   const FILM = {
-    loop: 'assets/video/loop.mp4',
-    loopPoster: 'assets/video/loop-poster.jpg',
     src: 'assets/video/capibara-film.mp4',
     poster: 'assets/video/film-poster.jpg',
   };

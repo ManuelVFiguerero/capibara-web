@@ -100,26 +100,28 @@ a { color: inherit; }
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center;
   background: #000; color: #fff; margin-top: 2px; min-height: 100svh;
 }
-.film-media { justify-self: center; padding: 32px 0; }
+.film-media { justify-self: center; padding: 32px 0; position: relative; }
+.sound {
+  position: absolute; left: 16px; bottom: 48px; z-index: 1;
+  display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 10px;
+  background: rgba(0,0,0,.45); color: #fff; backdrop-filter: blur(6px);
+  font: 400 11px/1 var(--sans); text-transform: uppercase; letter-spacing: .06em;
+  transition: background-color .25s;
+}
+.sound:hover { background: rgba(0,0,0,.7); }
+.sound svg { width: 18px; height: 18px; }
+.sound .wave { display: none; }
+.sound[aria-pressed="true"] .wave { display: inline; }
+.sound[aria-pressed="true"] .mute { display: none; }
 .film-media video {
   display: block; height: min(calc(100svh - var(--header-h) - 80px), 880px); aspect-ratio: 9 / 16; width: auto; max-width: 100%;
   object-fit: cover; background: #111;
 }
 .film-text { padding: 48px clamp(24px, 5vw, 72px); max-width: 44rem; }
 .film-kicker { margin: 0 0 14px; font-size: 13px; color: rgba(255,255,255,.7); }
-.film-title { margin: 0 0 32px; font: italic 400 clamp(40px, 5vw, 72px)/1.02 var(--serif); }
+.film-title { margin: 0; font: italic 400 clamp(40px, 5vw, 72px)/1.02 var(--serif); }
 .film-lead { margin: 0 0 32px; font-size: 15px; color: rgba(255,255,255,.75); max-width: 28rem; }
-.btn.light { background: #fff; color: #000; width: auto; padding: 0 28px; display: inline-flex; }
-.btn.light:hover { background: #ddd; }
 
-.player {
-  position: fixed; inset: 0; z-index: 60; background: #000;
-  display: grid; place-items: center;
-  opacity: 0; visibility: hidden; transition: opacity .4s, visibility 0s .4s;
-}
-.player.open { opacity: 1; visibility: visible; transition: opacity .4s, visibility 0s; }
-.player video { max-height: 100svh; max-width: 100vw; aspect-ratio: 9 / 16; height: 100svh; }
-.player-close { position: absolute; top: 20px; right: var(--gutter); color: #fff; z-index: 1; }
 
 /* ---------- Colección ---------- */
 
@@ -282,6 +284,8 @@ a { color: inherit; }
   .atelier-media { height: auto; width: 100%; aspect-ratio: 854 / 1272; }
   .film { grid-template-columns: 1fr; min-height: 0; }
   .film-media { padding: 0; width: 100%; }
+  .sound { bottom: 16px; }
+  .film-text { text-align: center; }
   .film-media video { height: auto; width: 100%; aspect-ratio: 4 / 5; }
   .film-text { padding: 36px 20px 56px; }
   .buy { text-align: center; }

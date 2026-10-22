@@ -104,45 +104,36 @@
     ]);
   }));
 
-  /* ---------- Película ---------- */
+  /* ---------- Historia (video) ---------- */
   const { FILM } = window.CapibaraData;
-  const loop = $('#filmLoop');
-  loop.poster = FILM.loopPoster;
-  // El loop solo se descarga y reproduce cuando la sección está a la vista.
-  if (!reducedMotion && 'IntersectionObserver' in window) {
+  const film = $('#film');
+  const sound = $('#filmSound');
+  film.poster = FILM.poster;
+  // El video solo se descarga y reproduce cuando la sección está a la vista.
+  if ('IntersectionObserver' in window) {
     new IntersectionObserver(entries => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
-          if (!loop.src) loop.src = FILM.loop;
-          loop.play().catch(() => {});
+          if (!film.src) film.src = FILM.src;
+          if (!reducedMotion || !film.muted) film.play().catch(() => {});
         } else {
-          loop.pause();
+          film.pause();
         }
       }
-    }, { threshold: 0.25 }).observe(loop);
+    }, { threshold: 0.35 }).observe(film);
+  } else {
+    film.src = FILM.src;
   }
-
-  const player = $('#player');
-  const full = $('#filmFull');
-  full.poster = FILM.poster;
-  function openPlayer() {
-    if (!full.src) full.src = FILM.src;
-    loop.pause();
-    player.classList.add('open');
-    player.setAttribute('aria-hidden', 'false');
-    $('#playerClose').focus();
-    full.play().catch(() => {});
-  }
-  function closePlayer() {
-    full.pause();
-    player.classList.remove('open');
-    player.setAttribute('aria-hidden', 'true');
-    $('#filmPlay').focus();
-  }
-  $('#filmPlay').addEventListener('click', openPlayer);
-  $('#playerClose').addEventListener('click', closePlayer);
-  full.addEventListener('ended', closePlayer);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && player.classList.contains('open')) closePlayer(); });
+  sound.addEventListener('click', () => {
+    if (!film.src) film.src = FILM.src;
+    film.muted = !film.muted;
+    if (!film.muted) {
+      film.currentTime = 0;
+      film.play().catch(() => {});
+    }
+    sound.setAttribute('aria-pressed', String(!film.muted));
+    $('#filmSoundLabel').textContent = film.muted ? 'Activar sonido' : 'Silenciar';
+  });
 
   /* ---------- A medida ---------- */
   const customCta = $('#customCta');
