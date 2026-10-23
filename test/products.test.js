@@ -73,10 +73,20 @@ test('la tienda no usa fotos reales de producto: solo imágenes generadas', () =
   for (const p of PRODUCTS) assert.equal(p.photo, undefined, `${p.id} todavía tiene foto real`);
 });
 
-test('las cuatro prendas generadas hoy tienen su imagen de campaña', () => {
-  for (const id of ['chaleco-plumas', 'top-volado-grande', 'pollera', 'conjunto-cuero-gamuzado']) {
-    assert.ok(PRODUCTS.find(p => p.id === id).look, `${id} sin imagen generada`);
-  }
+// Pendientes: se agotaron los créditos de IA de Figma; se renuevan el 23/10 a las 21:00 (ART).
+const PENDING_LOOKS = ['polleras-largas', 'sastreros-capsulas'];
+
+test('todas las prendas, salvo las pendientes, tienen su imagen generada', () => {
+  const missing = PRODUCTS.filter(p => !p.look && !PENDING_LOOKS.includes(p.id)).map(p => p.id);
+  assert.deepEqual(missing, [], `faltan: ${missing.join(', ')}`);
+});
+
+test('las prendas pendientes son piezas agotadas: no se pierde ninguna venta', () => {
+  for (const id of PENDING_LOOKS) assert.equal(PRODUCTS.find(p => p.id === id).inStock, false, id);
+});
+
+test('las 16 prendas del catálogo tienen su imagen generada', { todo: 'faltan polleras-largas y sastreros-capsulas' }, () => {
+  assert.deepEqual(PRODUCTS.filter(p => !p.look).map(p => p.id), []);
 });
 
 test('la hoja de estilos tiene las llaves balanceadas', () => {
