@@ -48,10 +48,10 @@
     { id: 'conjunto-argollas', look: 'assets/looks/conjunto-argollas.webp', name: 'Conjunto argollas, top y pollera', category: 'conjuntos', price: 500000, inStock: false,
       images: [img('f97fd346761bb1992d653e1277c58e05f26a6664f480330092f707a6a9e800ec')],
       url: SHOP + '/chalecos-tops/conjunto-argollas-de-top-y-pollera' },
-    { id: 'polleras-largas', name: 'Polleras largas', category: 'polleras', price: 580000, inStock: false,
+    { id: 'polleras-largas', look: 'assets/looks/polleras-largas.webp', name: 'Polleras largas', category: 'polleras', price: 580000, inStock: false,
       images: [img('6db991f5f0ce5fe5913db550625f6798e9beb384ac8ca9b5e65eb7c4bc6f0f1b')],
       url: SHOP + '/vestidos-polleras/polleras-largas' },
-    { id: 'sastreros-capsulas', name: 'Sastreros cápsulas', category: 'tops', price: 180000, inStock: false,
+    { id: 'sastreros-capsulas', look: 'assets/looks/sastreros-capsulas.webp', name: 'Sastreros cápsulas', category: 'tops', price: 180000, inStock: false,
       images: [img('c90c200a562e85fd641f8689d4077dbe8081e70a221f53b6d70247f2ce774ecf')],
       url: SHOP + '/chalecos-tops/sastreros-capsulas' },
   ].map(p => ({ sizes: CLOTHING_SIZES, ...p }));

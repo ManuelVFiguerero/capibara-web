@@ -35,5 +35,4 @@ Editá `src/products.js`. Los tests de `test/products.test.js` verifican ids ún
 
 - Talles S, M y L para toda la ropa: es un supuesto, la tienda actual no los muestra. Ajustar en `products.js`.
 - Todas las imágenes de producto son generadas con IA e ilustrativas (el pie de página lo aclara). Riesgo conocido: la foto puede no coincidir exactamente con la prenda real; conviene ofrecer fotos reales por WhatsApp a quien las pida.
-- Faltan las fotos de 2 prendas agotadas (polleras-largas y sastreros-capsulas): se agotaron los créditos de IA de Figma del día. Hasta entonces no aparecen en la colección.
 - La compra se cierra por WhatsApp; no hay pasarela de pago.
